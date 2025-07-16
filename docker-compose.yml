@@ -1,0 +1,26 @@
+﻿services:
+  web:
+    build:
+      context: ./CourseStudentsProject 
+      dockerfile: Dockerfile           
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: courses_database
+      POSTGRES_USER: oduvanchik
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5455:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
